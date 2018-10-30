@@ -41,8 +41,7 @@ public class ShootGame extends JPanel {
 	private Bullet[] bullets = {};
 
 	ShootGame() {
-		Airplane a = new Airplane();
-		Bee b = new Bee();
+	
 	}
 
 	static {// initialize static resources->pictures
@@ -166,7 +165,7 @@ public class ShootGame extends JPanel {
 
 	public void checkGameOverAction() {
 		if (isGameOver()) {
-
+			state = GAME_OVER;
 		}
 	}
 
@@ -190,12 +189,38 @@ public class ShootGame extends JPanel {
 		MouseAdapter l = new MouseAdapter() {
 			public void mouseMoved(MouseEvent e) {
 				// hero moves together with mouse
-				
-				int x = e.getX();
-				int y = e.getY();
-				hero.moveTo(x, y);
-
+				if (state == RUNNING) {
+					int x = e.getX();
+					int y = e.getY();
+					hero.moveTo(x, y);
+				}
 			}
+			public void mouseClicked(MouseEvent e) {
+				switch(state) {
+				case START:
+					state  = RUNNING;
+					break;
+				case GAME_OVER:
+					score = 0;
+					hero= new Hero();
+					flyings = new FlyingObject[0];
+					bullets = new Bullet[0];
+					state = START;
+					break;
+				}
+			}
+			public void mouseExited(MouseEvent e) {
+				if(state==RUNNING) {
+					state = PAUSE;
+				}
+			}
+			public void mouseEntered(MouseEvent e) {
+				if(state==PAUSE) {
+					state=RUNNING;
+				}
+			}
+
+				
 		};
 		this.addMouseListener(l);
 		this.addMouseMotionListener(l);
@@ -267,10 +292,7 @@ public class ShootGame extends JPanel {
 			g.drawImage(gameover, 0, 0, null);
 			break;
 		}
-		g.drawImage(start, 0, 0, null);
-		g.drawImage(pause, 0, 0, null);
-		g.drawImage(gameover, 0, 0, null);
-
+	
 	}
 
 	public static void main(String[] args) {
