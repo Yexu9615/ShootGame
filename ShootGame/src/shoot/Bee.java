@@ -2,7 +2,7 @@ package shoot;
 
 import java.util.Random;
 
-public class Bee extends FlyingObject implements Award {
+public class Bee extends FlyingObject implements Reward {
 	private int xSpeed = 1;
 	private int ySpeed = 2;
 	private int awardType;
