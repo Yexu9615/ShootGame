@@ -144,14 +144,14 @@ public class ShootGame extends JPanel {
 				Enemy e = (Enemy) one;
 				score += e.getScore();
 			}
-			if (one instanceof Reward) {
-				Reward a = (Reward) one;
+			if (one instanceof Award) {
+				Award a = (Award) one;
 				int type = a.getType();
 				switch (type) {
-				case Reward.DOUBLE_FIRE:
+				case Award.DOUBLE_FIRE:
 					hero.addDoubleFire();
 					break;
-				case Reward.LIFE:
+				case Award.LIFE:
 					hero.addLife();
 					break;
 				}
